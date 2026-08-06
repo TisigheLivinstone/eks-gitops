@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: api-production
+  namespace: argocd
+  annotations:
+    # Argo CD Image Updater — watches ECR for new images and commits the updated tag back to Git
+    argocd-image-updater.argoproj.io/image-list: api=506456084401.dkr.ecr.eu-west-1.amazonaws.com/api
+    argocd-image-updater.argoproj.io/api.update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/TisigheLivinstone/eks-app-deployment
+    targetRevision: main
+    path: helm/api-chart
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+
+  syncPolicy:
+    automated:
+      prune: true       # delete resources removed from Git
+      selfHeal: true    # revert manual changes made directly to the cluster
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        maxDuration: 3m
+        factor: 2
