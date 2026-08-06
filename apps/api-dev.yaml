@@ -4,7 +4,7 @@ metadata:
   name: api-dev
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: api=506456084401.dkr.ecr.eu-west-1.amazonaws.com/api
+    argocd-image-updater.argoproj.io/image-list: api=YOUR_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/api
     argocd-image-updater.argoproj.io/api.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
