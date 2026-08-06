@@ -17,6 +17,7 @@ spec:
     targetRevision: master
     path: helm/api-chart
     helm:
+      releaseName: api
       valueFiles:
         - values.yaml
         - values-prod.yaml
