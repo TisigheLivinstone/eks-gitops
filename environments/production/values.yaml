@@ -4,7 +4,7 @@ image:
   repository: 506456084401.dkr.ecr.eu-west-1.amazonaws.com/api
   # Image Updater keeps this in sync automatically after each CodeBuild run
   # Never use 'latest' — the SHA makes every deployment traceable to a specific commit
-  tag: decf237ec12e5726c3cbc6a5e84fd17ade829aaa
+  tag: d58c17b876d127561a4e3aad40008a83a66aca0a
 
 resources:
   requests:
